@@ -1,14 +1,108 @@
 <!DOCTYPE HTML>
 <HTML>
-<head>
-  <meta charset='utf-8' />
-  <title>Anonymish - Local Chat</title>
-  <script src='javascript/jquery-2.1.4.min.js'></script>
-  <script src='javascript/underscore-min.js'></script>
-  <script src='javascript/react.js'></script>
-  <script src='javascript/react-dom.js'></script>
-</head>
-<body>
+  <head>
+    <meta charset='utf-8' />
+    <title>Anonymish - Local Chat</title>
+    <script src='javascript/jquery-2.1.4.min.js'></script>
+    <script src='javascript/underscore-min.js'></script>
+    <script src='javascript/react.js'></script>
+    <script src='javascript/react-dom.js'></script>
+    <script src="javascript/browser.min.js"></script>
+    <script src='javascript/custom.js'></script>
+    <link rel='stylesheet' type='text/css' href='css/normalize.css'>
+    <link rel='stylesheet' type='text/css' href='css/milligram.css'>
+    <link rel='stylesheet' type='text/css' href='css/trg.css'>
+    <link rel='stylesheet' type='text/css' href='css/custom.css'>
+  </head>
+  <body>
+    <nav class='header container' id='navBar'></nav>
+    <div class='container chatWindow' id='mainContent'></div>
+    <div class='footer container center' id='chatBar'></div>
 
-</body>
+    <script type='text/babel'>
+      var NavBar = React.createClass({
+        render: function(){
+          return (
+            <div className='row bg-green'>
+              <div className='col span-4-t left'>
+                <h1 className=''>Anonymish</h1>
+              </div>
+              <div className='col span-8-t right'>
+                <ul className='inline-list'>
+                  <li>Register | </li>
+                  <li>Log In | </li>
+                  <li>About&nbsp;</li>
+                </ul>
+              </div>
+            </div>
+          )
+        }
+      })
+
+      var ChatText = React.createClass({
+        getData: function(){
+          this.setState({data: this.props.data})
+        },
+
+        componentDidMount: function(){
+          this.getData();
+          setInterval(this.getData, 1000)
+        },
+
+        render: function() {
+          return (
+            <div className='row bg-other-green'>
+              <div className='col span-12-t'>
+                <CompileMessages data={this.props.data} />
+              </div>
+            </div>
+          )
+        }
+      })
+
+      var CompileMessages = React.createClass({
+        render: function() {
+          var index = -1
+          var results = this.props.data.map(function(message){
+            index = index + 1
+            return (
+              <p className='comment' key={index}>{message}</p>
+              )
+          })
+          return (
+            <div>{results}</div>
+          )
+        }
+      })
+
+      var ChatBar = React.createClass({
+        render: function() {
+          return (
+            <div className='row bg-green'>
+              <div className='col span-12-t'>
+                <form onSubmit={this.postComment} className=''>
+                  <label className=''>Whats on your mind?</label>
+                  <input onChange={this.changeComment} className='inline left' type='text' name='message'></input>
+                  <input className='inline right' type='submit' />
+                </form>
+              </div>
+            </div>
+          )
+        },
+
+        postComment: function(e) {
+          e.preventDefault();
+          messages.push(this.state.comment)
+        },
+
+        changeComment: function(e){
+          this.setState({comment: e.target.value})
+        }
+      })
+
+      ReactDOM.render(<NavBar />, document.getElementById('navBar'))
+      ReactDOM.render(<ChatText data={messages}/>, document.getElementById('mainContent'))
+      ReactDOM.render(<ChatBar />, document.getElementById('chatBar'))
+    </script>
+  </body>
 </HTML>

@@ -1,0 +1,52 @@
+html {
+    background-color: #88D9EF;
+}
+
+.debug {
+    outline: 1px solid black;
+}
+
+.center {
+    text-align: center;
+}
+
+.left {
+    text-align: left;
+}
+
+.right {
+    text-align: right;
+}
+
+.inline-list li {
+    display: inline;
+}
+
+.bg-green {
+    background-color: #66B5C9;
+}
+
+.bg-aqua {
+    background-color: #7CDDCF;
+}
+
+.bg-other-green {
+    background-color: #77DEE5;
+}
+
+.inline {
+    display: inline;
+}
+
+.footer {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.comment {
+    border-bottom: 1px solid black;
+}
