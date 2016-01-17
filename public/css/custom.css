@@ -50,3 +50,17 @@ html {
 .comment {
     border-bottom: 1px solid black;
 }
+
+.all {
+    height: 100vh;
+    overflow: hidden;
+}
+
+.chatWindow {
+    height: inherit;
+}
+
+.scroll {
+    overflow: scroll;
+    /*height: 100vh;*/
+}

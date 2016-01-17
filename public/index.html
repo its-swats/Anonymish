@@ -15,9 +15,11 @@
     <link rel='stylesheet' type='text/css' href='css/custom.css'>
   </head>
   <body>
+  <div class='all'>
     <nav class='header container' id='navBar'></nav>
-    <div class='container chatWindow' id='mainContent'></div>
+    <div class='container bg-other-green chatWindow' id='mainContent'></div>
     <div class='footer container center' id='chatBar'></div>
+  </div>
 
     <script type='text/babel'>
       var NavBar = React.createClass({
@@ -42,6 +44,7 @@
       var ChatText = React.createClass({
         getData: function(){
           this.setState({data: this.props.data})
+          this.setBoxHeight();
         },
 
         componentDidMount: function(){
@@ -49,10 +52,17 @@
           setInterval(this.getData, 1000)
         },
 
+        setBoxHeight: function(){
+          var fullsize = $(window).height();
+          var header = $('.header').height();
+          var footer = $('.footer').height();
+          $('.chatMessages').height(fullsize - header - footer)
+        },
+
         render: function() {
           return (
-            <div className='row bg-other-green'>
-              <div className='col span-12-t'>
+            <div className='row'>
+              <div className='col span-12-t scroll'>
                 <CompileMessages data={this.props.data} />
               </div>
             </div>
@@ -70,7 +80,7 @@
               )
           })
           return (
-            <div>{results}</div>
+            <div className='chatMessages'>{results}</div>
           )
         }
       })
@@ -101,8 +111,8 @@
       })
 
       ReactDOM.render(<NavBar />, document.getElementById('navBar'))
-      ReactDOM.render(<ChatText data={messages}/>, document.getElementById('mainContent'))
       ReactDOM.render(<ChatBar />, document.getElementById('chatBar'))
+      ReactDOM.render(<ChatText data={messages}/>, document.getElementById('mainContent'))
     </script>
   </body>
 </HTML>
