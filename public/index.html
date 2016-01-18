@@ -141,13 +141,21 @@
 
       var ChatText = React.createClass({
         getData: function(){
-          this.setState({data: this.props.data})
-          this.setBoxHeight();
+          var response = $.ajax({
+            type: 'GET',
+            url: '/posts',
+            success: function(data){
+              console.log(data)
+            }
+          })
+
+          // this.setState({data: this.props.data})
+          // this.setBoxHeight();
         },
 
         componentDidMount: function(){
           this.getData();
-          setInterval(this.getData, 1000)
+          // setInterval(this.getData, 1000)
         },
 
         setBoxHeight: function(){
@@ -200,7 +208,11 @@
 
         postComment: function(e) {
           e.preventDefault();
-          messages.push(this.state.comment)
+          var response = $.ajax({
+            type: 'POST',
+            url: '/posts',
+            data: {post: this.state.comment}
+          })
         },
 
         changeComment: function(e){
