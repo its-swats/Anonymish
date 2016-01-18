@@ -34,6 +34,15 @@
           )
         },
 
+        LoggedIn: function(){
+          return (
+            <ul className='inline-list'>
+              <li>{localStorage.username} | </li>
+              <li><a href='#' onClick={this.logOut} id='logOut'>Log Out</a></li>
+            </ul>
+          )
+        },
+
         render: function(){
           return (
             <div className='row bg-green'>
@@ -41,29 +50,39 @@
                 <h1 className=''>Anonymish</h1>
               </div>
               <div className='col span-8-t right'>
-                {this.notLoggedIn()}
+                {localStorage.username ? this.LoggedIn() : this.notLoggedIn()}
               </div>
             </div>
           )
         },
 
         register: function(event){
+          event.preventDefault();
           this.showModal();
           ReactDOM.render(<RegisterModal />, document.getElementById('modal'))
         },
 
         login: function(event){
+          event.preventDefault();
           this.showModal();
           ReactDOM.render(<LoginModal />, document.getElementById('modal'))
         },
 
         about: function(event){
+          event.preventDefault();
           this.showModal();
           ReactDOM.render(<AboutModal />, document.getElementById('modal'))
         },
 
         showModal: function() {
           $('#modal').toggle()
+        },
+
+        logOut: function(){
+          event.preventDefault();
+          localStorage.username = ''
+          localStorage.zip = ''
+          ReactDOM.render(<NavBar />, document.getElementById('navBar'))
         }
       })
 
@@ -91,8 +110,9 @@
             url: '/users',
             data: {username: $username, password: $password, zip: $zip},
             success: function(data){
-              console.log(data)
-              this.setState({username: data.username, zip: data.zip})
+              localStorage.setItem("username", data.username);
+              localStorage.setItem("zip", data.zip);
+              ReactDOM.render(<NavBar />, document.getElementById('navBar'))
             }.bind(this)
           })
         },
@@ -215,13 +235,18 @@
       var LoggedIn = React.createClass({
         render: function() {
           return (
-           <p>{!!this.state.username}</p>
+           <p>{this.state.username ? "Yep" : "Nope"}</p>
           )
         },
 
         getInitialState: function(){
           return ({username: ""})
+        },
+
+        componentDidMount: function() {
+          this.setState({username: localStorage.username})
         }
+
       })
 
       var ChatBar = React.createClass({
@@ -230,7 +255,7 @@
             <div className='row bg-green'>
               <div className='col span-12-t'>
                 <form onSubmit={this.postComment} className=''>
-                  <label className=''>Whats on your mind? <LoggedIn /></label>
+                  <label className=''>Whats on your mind? </label>
                   <input onChange={this.changeComment} id='userMessageBar' className='inline left' type='text' name='message'></input>
                   <input className='inline right' type='submit' />
                 </form>
@@ -257,7 +282,7 @@
       })
 
       ReactDOM.render(<NavBar />, document.getElementById('navBar'))
-      ReactDOM.render(<ChatBar />, document.getElementById('chatBar'))
+      ReactDOM.render(<ChatBar data={localStorage.username}/>, document.getElementById('chatBar'))
       ReactDOM.render(<ChatText />, document.getElementById('mainContent'))
     </script>
   </body>
