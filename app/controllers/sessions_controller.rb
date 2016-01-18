@@ -6,7 +6,7 @@ class SessionsController < ApplicationController
     p "hit1" *90
     if user && user.authenticate(params[:password])
       p "hit2" * 90
-      render json: {username: user.username, zip: user.zip_code}
+      render json: {username: user.username, zip: user.zip_code, id: user.id}
     end
   end
 

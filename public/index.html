@@ -288,10 +288,12 @@
 
         postComment: function(e) {
           e.preventDefault();
+          var id = localStorage.id;
+          var username = localStorage.username;
           var response = $.ajax({
             type: 'POST',
             url: '/posts',
-            data: {post: this.state.comment},
+            data: {post: this.state.comment, id: id, username: username},
             success: function(){
               $('#userMessageBar').val('');
             }

@@ -7,7 +7,10 @@ class PostsController < ApplicationController
   end
 
   def create
-    Post.create(content: params[:post])
-    render json: { :status => :ok }
+    user = User.find_by(id: params[:id], username: params[:username])
+    if user
+        user.posts.create(content: params[:post])
+        render json: { :status => :ok }
+    end
   end
 end
