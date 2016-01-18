@@ -85,6 +85,7 @@
           localStorage.zip = ''
           localStorage.id = ''
           ReactDOM.render(<NavBar />, document.getElementById('navBar'))
+          ReactDOM.render(<ChatBar />, document.getElementById('chatBar'))
         }
       })
 
@@ -117,6 +118,7 @@
               localStorage.setItem('id', data.id);
               $('.modal').hide();
               ReactDOM.render(<NavBar />, document.getElementById('navBar'))
+              ReactDOM.render(<ChatBar />, document.getElementById('chatBar'))
             }.bind(this)
           })
         },
@@ -168,6 +170,7 @@
               localStorage.setItem('id', data.id);
               $('.modal').hide();
               ReactDOM.render(<NavBar />, document.getElementById('navBar'))
+              ReactDOM.render(<ChatBar />, document.getElementById('chatBar'))
             }.bind(this)
           })
         },
@@ -278,12 +281,26 @@
               <div className='col span-12-t'>
                 <form onSubmit={this.postComment} className=''>
                   <label className=''>Whats on your mind? </label>
-                  <input onChange={this.changeComment} id='userMessageBar' className='inline left' type='text' name='message'></input>
-                  <input className='inline right' type='submit' />
+                  {this.checkLogin()}
                 </form>
               </div>
             </div>
           )
+        },
+
+        checkLogin: function() {
+          if (!!localStorage.username && !!localStorage.id) {
+            return (
+              <div>
+              <input onChange={this.changeComment} id='userMessageBar' className='inline left' type='text' name='message'></input>
+              <input className='inline right' type='submit' />
+              </div>
+            )
+          } else {
+            return (
+              <p>You must log in before posting</p>
+            )
+          }
         },
 
         postComment: function(e) {
@@ -306,7 +323,7 @@
       })
 
       ReactDOM.render(<NavBar />, document.getElementById('navBar'))
-      ReactDOM.render(<ChatBar data={localStorage.username}/>, document.getElementById('chatBar'))
+      ReactDOM.render(<ChatBar />, document.getElementById('chatBar'))
       ReactDOM.render(<ChatText />, document.getElementById('mainContent'))
     </script>
   </body>
