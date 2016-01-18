@@ -81,9 +81,25 @@
       })
 
       var RegisterModal = React.createClass({
+        register: function(event) {
+          event.preventDefault();
+          var $username = $('#regName').val()
+          var $password = $('#regPassword').val()
+          var $zip = $('#regZip').val()
+          $.ajax({
+            type: 'POST',
+            url: '/users',
+            data: {username: $username, password: $password, zip: $zip},
+            success: function(data){
+              console.log(data)
+              this.setState({username: data.username, zip: data.zip})
+            }.bind(this)
+          })
+        },
+
         render: function() {
           return (  
-            <form>
+            <form onSubmit={this.register}>
               <div className='row'>
                 <div className='span-12-t center'>
                   <h1>Register Account</h1>
@@ -91,13 +107,16 @@
               </div>
               <div className='row'>
                 <div className='span-12-t center'>
-                  <input type='text' name='username' placeholder='Username' />
+                  <input type='text' name='username' id='regName' placeholder='Username' />
                 </div>  
               </div>
               <div className='row'>
-                <div className='span-12-t center'>
-                  <input type='password' name='username' placeholder='Password' />
+                <div className='span-7-t inline right '>
+                  <input type='password' name='password' id='regPassword' placeholder='Password' />&nbsp;
                 </div>  
+                <div className='span-4-t inline left'>
+                  <input type='text' name='zip' id='regZip' placeholder='Zip Code' />
+                </div>
               </div>
               <div className='row'>
                 <div className='span-12-t center'>
@@ -193,13 +212,25 @@
         }
       })
 
+      var LoggedIn = React.createClass({
+        render: function() {
+          return (
+           <p>{!!this.state.username}</p>
+          )
+        },
+
+        getInitialState: function(){
+          return ({username: ""})
+        }
+      })
+
       var ChatBar = React.createClass({
         render: function() {
           return (
             <div className='row bg-green'>
               <div className='col span-12-t'>
                 <form onSubmit={this.postComment} className=''>
-                  <label className=''>Whats on your mind?</label>
+                  <label className=''>Whats on your mind? <LoggedIn /></label>
                   <input onChange={this.changeComment} id='userMessageBar' className='inline left' type='text' name='message'></input>
                   <input className='inline right' type='submit' />
                 </form>
