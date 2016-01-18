@@ -1,8 +1,14 @@
-messages = ["message one", "message two", "message three", "message four", "message one", "message two", "message three", "message four", "message one", "message two", "message three", "message four", "message one", "message two", "message three", "message four", "end"]
+messages = []
 
 $(function(){
+  closeModal();
 })
 
+var closeModal = function() {
+  $('.all').on('click', function(){
+    $('.modal').hide();
+  })
+}
 // var setBoxHeight = function() {
 //   var fullsize = $(window).height();
 //   var header = $('.header').height();

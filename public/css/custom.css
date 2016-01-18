@@ -64,3 +64,18 @@ html {
     overflow: scroll;
     /*height: 100vh;*/
 }
+
+.modal {
+    display: none;
+    background-color: #FFFAEB;
+    box-shadow: 3px 3px 5px black;
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    margin: auto;
+    outline: 1px solid black;
+    width: 50%;
+    height: 40%;
+}

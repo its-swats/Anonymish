@@ -20,9 +20,20 @@
     <div class='container bg-other-green chatWindow' id='mainContent'></div>
     <div class='footer container center' id='chatBar'></div>
   </div>
+  <div class='modal' id='modal'></div>
 
     <script type='text/babel'>
       var NavBar = React.createClass({
+        notLoggedIn: function() {
+          return (
+            <ul className='inline-list'>
+              <li><a href='#' onClick={this.register} id='register'>Register</a> | </li>
+              <li><a href='#' onClick={this.login} id='logIn'>Log In</a> | </li>
+              <li><a href='#' onClick={this.about} id='about'>About</a>&nbsp;</li>
+            </ul>
+          )
+        },
+
         render: function(){
           return (
             <div className='row bg-green'>
@@ -30,13 +41,100 @@
                 <h1 className=''>Anonymish</h1>
               </div>
               <div className='col span-8-t right'>
-                <ul className='inline-list'>
-                  <li>Register | </li>
-                  <li>Log In | </li>
-                  <li>About&nbsp;</li>
-                </ul>
+                {this.notLoggedIn()}
               </div>
             </div>
+          )
+        },
+
+        register: function(event){
+          this.showModal();
+          ReactDOM.render(<RegisterModal />, document.getElementById('modal'))
+        },
+
+        login: function(event){
+          this.showModal();
+          ReactDOM.render(<LoginModal />, document.getElementById('modal'))
+        },
+
+        about: function(event){
+          this.showModal();
+          ReactDOM.render(<AboutModal />, document.getElementById('modal'))
+        },
+
+        showModal: function() {
+          $('#modal').toggle()
+        }
+      })
+
+      var AboutModal = React.createClass({
+        render: function() {
+          return (
+            <div className='row'>
+              <div className='span-12-t center'>
+                <h1>About</h1>
+                <p className='left'>Anonymish is a messageboard that will allow you to leave messages for other people in your immediate area. By default, you can see messages posted within 20 miles. You must be registered to post, but your registration data will not be shown to other users.</p>
+              </div>
+            </div>
+          )
+        }
+      })
+
+      var RegisterModal = React.createClass({
+        render: function() {
+          return (  
+            <form>
+              <div className='row'>
+                <div className='span-12-t center'>
+                  <h1>Register Account</h1>
+                </div>  
+              </div>
+              <div className='row'>
+                <div className='span-12-t center'>
+                  <input type='text' name='username' placeholder='Username' />
+                </div>  
+              </div>
+              <div className='row'>
+                <div className='span-12-t center'>
+                  <input type='password' name='username' placeholder='Password' />
+                </div>  
+              </div>
+              <div className='row'>
+                <div className='span-12-t center'>
+                  <input type='submit' />
+                </div>  
+              </div>
+            </form>
+          )
+        }
+      })
+
+
+      var LoginModal = React.createClass({
+        render: function() {
+          return (  
+            <form>
+              <div className='row'>
+                <div className='span-12-t center'>
+                  <h1>Log In</h1>
+                </div>  
+              </div>
+              <div className='row'>
+                <div className='span-12-t center'>
+                  <input type='text' name='username' placeholder='Username' />
+                </div>  
+              </div>
+              <div className='row'>
+                <div className='span-12-t center'>
+                  <input type='password' name='username' placeholder='Password' />
+                </div>  
+              </div>
+              <div className='row'>
+                <div className='span-12-t center'>
+                  <input type='submit' />
+                </div>  
+              </div>
+            </form>
           )
         }
       })
