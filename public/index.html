@@ -145,17 +145,19 @@
             type: 'GET',
             url: '/posts',
             success: function(data){
-              console.log(data)
-            }
-          })
+              this.setState({data: data})
+              this.setBoxHeight();
+            }.bind(this)
+          })          
+        },
 
-          // this.setState({data: this.props.data})
-          // this.setBoxHeight();
+        getInitialState: function(){
+          return {data: []};
         },
 
         componentDidMount: function(){
           this.getData();
-          // setInterval(this.getData, 1000)
+          setInterval(this.getData, 2000)
         },
 
         setBoxHeight: function(){
@@ -169,7 +171,7 @@
           return (
             <div className='row'>
               <div className='col span-12-t scroll'>
-                <CompileMessages data={this.props.data} />
+                <CompileMessages data={this.state.data} />
               </div>
             </div>
           )
@@ -182,7 +184,7 @@
           var results = this.props.data.map(function(message){
             index = index + 1
             return (
-              <p className='comment' key={index}>{message}</p>
+              <p className='comment' key={index}>{message.content}</p>
               )
           })
           return (
@@ -198,7 +200,7 @@
               <div className='col span-12-t'>
                 <form onSubmit={this.postComment} className=''>
                   <label className=''>Whats on your mind?</label>
-                  <input onChange={this.changeComment} className='inline left' type='text' name='message'></input>
+                  <input onChange={this.changeComment} id='userMessageBar' className='inline left' type='text' name='message'></input>
                   <input className='inline right' type='submit' />
                 </form>
               </div>
@@ -211,7 +213,10 @@
           var response = $.ajax({
             type: 'POST',
             url: '/posts',
-            data: {post: this.state.comment}
+            data: {post: this.state.comment},
+            success: function(){
+              $('#userMessageBar').val('');
+            }
           })
         },
 
@@ -222,7 +227,7 @@
 
       ReactDOM.render(<NavBar />, document.getElementById('navBar'))
       ReactDOM.render(<ChatBar />, document.getElementById('chatBar'))
-      ReactDOM.render(<ChatText data={messages}/>, document.getElementById('mainContent'))
+      ReactDOM.render(<ChatText />, document.getElementById('mainContent'))
     </script>
   </body>
 </HTML>
