@@ -1,6 +1,7 @@
 Rails.application.routes.draw do
   resources :posts
   resources :users
+  resources :sessions
   root :to => redirect('/index.html')
 
   # The priority is based upon order of creation: first created -> highest priority.

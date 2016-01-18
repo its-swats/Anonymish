@@ -38,7 +38,8 @@
           return (
             <ul className='inline-list'>
               <li>{localStorage.username} | </li>
-              <li><a href='#' onClick={this.logOut} id='logOut'>Log Out</a></li>
+              <li><a href='#' onClick={this.logOut} id='logOut'>Log Out</a> | </li>
+              <li><a href='#' onClick={this.about} id='about'>About</a>&nbsp;</li>
             </ul>
           )
         },
@@ -82,6 +83,7 @@
           event.preventDefault();
           localStorage.username = ''
           localStorage.zip = ''
+          localStorage.id = ''
           ReactDOM.render(<NavBar />, document.getElementById('navBar'))
         }
       })
@@ -112,6 +114,8 @@
             success: function(data){
               localStorage.setItem("username", data.username);
               localStorage.setItem("zip", data.zip);
+              localStorage.setItem('id', data.id);
+              $('.modal').hide();
               ReactDOM.render(<NavBar />, document.getElementById('navBar'))
             }.bind(this)
           })
@@ -150,9 +154,27 @@
 
 
       var LoginModal = React.createClass({
+        login: function(event) {
+          event.preventDefault() 
+          var $username = $('#logName').val()
+          var $password = $('#logPass').val()
+          $.ajax({
+            type: 'POST',
+            url: '/sessions',
+            data: {username: $username, password: $password},
+            success: function(data) {
+              localStorage.setItem("username", data.username);
+              localStorage.setItem("zip", data.zip);
+              localStorage.setItem('id', data.id);
+              $('.modal').hide();
+              ReactDOM.render(<NavBar />, document.getElementById('navBar'))
+            }.bind(this)
+          })
+        },
+
         render: function() {
           return (  
-            <form>
+            <form onSubmit={this.login}>
               <div className='row'>
                 <div className='span-12-t center'>
                   <h1>Log In</h1>
@@ -160,12 +182,12 @@
               </div>
               <div className='row'>
                 <div className='span-12-t center'>
-                  <input type='text' name='username' placeholder='Username' />
+                  <input type='text' id='logName' name='username' placeholder='Username' />
                 </div>  
               </div>
               <div className='row'>
                 <div className='span-12-t center'>
-                  <input type='password' name='username' placeholder='Password' />
+                  <input type='password' id='logPass' name='password' placeholder='Password' />
                 </div>  
               </div>
               <div className='row'>
