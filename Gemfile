@@ -20,6 +20,7 @@ gem 'sdoc', '~> 0.4.0', group: :doc
 gem 'rails-api'
 gem 'rack-cors'
 gem 'bcrypt', '~> 3.1.7'
+gem 'geokit-rails'
 gem 'pry-rails'
 gem 'json'
 gem 'rails_12factor', group: :production
