@@ -48,7 +48,7 @@
           return (
             <div className='row bg-green'>
               <div className='col span-4-t left'>
-                <h1 className=''>Anonymish</h1>
+                <h1 className=''>&nbsp;Anonymish</h1>
               </div>
               <div className='col span-8-t right'>
                 {localStorage.username ? this.LoggedIn() : this.notLoggedIn()}
@@ -79,7 +79,7 @@
           $('#modal').toggle()
         },
 
-        logOut: function(){
+        logOut: function(event){
           event.preventDefault();
           localStorage.username = ''
           localStorage.zip = ''
@@ -248,7 +248,9 @@
           var results = this.props.data.map(function(message){
             index = index + 1
             return (
-              <p className='comment' key={index}>{message.content}</p>
+              
+                <p className='comment' key={index}>{message.content}<br/><span className='small'>{message.created_at}</span></p>
+              
               )
           })
           return (
