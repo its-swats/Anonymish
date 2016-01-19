@@ -4,7 +4,7 @@ class UsersController < ApplicationController
   def create
     user = User.new(username: params[:username], zip_code: params[:zip], password: params[:password])
     if user.save
-      render json: {:status => :ok, username: user.username, zip: user.zip_code}
+      render json: {:status => :ok, username: user.username, zip: user.zip_code, id: user.id}
     else
       render json: {:message => 'no good'}
     end    
