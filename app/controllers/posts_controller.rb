@@ -1,16 +1,23 @@
 class PostsController < ApplicationController
+  include Geokit::Geocoders
   skip_before_action :verify_authenticity_token, only: [:create]
 
   def index
-    @posts = Post.all.order(id: :desc).limit(20)
-    render json: @posts
+
+    if params[:zip]
+      @posts = Post.all.order(id: :desc).limit(20)
+      render json: @posts
+    else
+      render json: {}, status: 401
+    end
   end
 
-  def create
+  def create 
     user = User.find_by(id: params[:id], username: params[:username])
     if user
-        user.posts.create(content: params[:post])
-        render json: { :status => :ok }
+      post_info = MultiGeocoder.geocode(user.zip_code.to_s)
+      user.posts.create(content: params[:post], lat: post_info.lat, lng: post_info.lng, city: post_info.district)
+      render json: { :status => :ok }
     end
   end
 end

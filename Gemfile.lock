@@ -146,6 +146,7 @@ PLATFORMS
 DEPENDENCIES
   bcrypt (~> 3.1.7)
   byebug
+  geokit
   geokit-rails
   jbuilder (~> 2.0)
   jquery-rails

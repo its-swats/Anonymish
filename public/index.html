@@ -81,9 +81,9 @@
 
         logOut: function(event){
           event.preventDefault();
-          localStorage.username = ''
-          localStorage.zip = ''
-          localStorage.id = ''
+          localStorage.removeItem('username')
+          localStorage.removeItem('zip')
+          localStorage.removeItem('id')
           ReactDOM.render(<NavBar />, document.getElementById('navBar'))
           ReactDOM.render(<ChatBar />, document.getElementById('chatBar'))
         }
@@ -166,7 +166,7 @@
             data: {username: $username, password: $password},
             success: function(data) {
               localStorage.setItem("username", data.username);
-              localStorage.setItem("zip", data.zip);
+              localStorage.setItem("zip", data.zip)
               localStorage.setItem('id', data.id);
               $('.modal').hide();
               ReactDOM.render(<NavBar />, document.getElementById('navBar'))
@@ -208,9 +208,13 @@
           var response = $.ajax({
             type: 'GET',
             url: '/posts',
+            data: {zip: localStorage.zip},
             success: function(data){
               this.setState({data: data})
               this.setBoxHeight();
+            }.bind(this),
+            error: function(data){
+              this.setState({data: ""})
             }.bind(this)
           })          
         },
@@ -244,20 +248,24 @@
 
       var CompileMessages = React.createClass({
         render: function() {
-          var index = -1
-          var results = this.props.data.map(function(message){
-            index = index + 1
+          if (!!this.props.data == true) {
+            var index = -1
+            var results = this.props.data.map(function(message){
+              index = index + 1
+              return (
+                
+                  <p className='comment' key={index}>{message.content}<br/><span className='small'>{message.city} - {message.created_at}</span></p>
+                
+                )
+            })
             return (
-              
-                <p className='comment' key={index}>{message.content}<br/><span className='small'>{message.created_at}</span></p>
-              
-              )
-          })
-          return (
-            <div className='chatMessages'>{results}</div>
-          )
+              <div className='chatMessages'>{results}</div>
+            )
+        } else {
+          return <p className='comment'>You must log in to view messages.</p>
         }
-      })
+      }
+    })
 
       var LoggedIn = React.createClass({
         render: function() {
