@@ -204,19 +204,23 @@
       })
 
       var ChatText = React.createClass({
-        getData: function(){
-          var response = $.ajax({
-            type: 'GET',
-            url: '/posts',
-            data: {zip: localStorage.zip},
-            success: function(data){
-              this.setState({data: data})
-              this.setBoxHeight();
-            }.bind(this),
-            error: function(data){
-              this.setState({data: ""})
-            }.bind(this)
-          })          
+          getData: function(){
+            if (!!localStorage.username == true) {
+            var response = $.ajax({
+              type: 'GET',
+              url: '/posts',
+              data: {zip: localStorage.zip},
+              success: function(data){
+                this.setState({data: data})
+                this.setBoxHeight();
+              }.bind(this),
+              error: function(data){
+                this.setState({data: ""})
+              }.bind(this)
+            })
+          } else {
+            this.setState({data: ""})
+          }      
         },
 
         getInitialState: function(){
