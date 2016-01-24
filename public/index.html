@@ -2,6 +2,7 @@
 <HTML>
   <head>
     <meta charset='utf-8' />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Anonymish - Local Chat</title>
     <script src='javascript/jquery-2.1.4.min.js'></script>
     <script src='javascript/underscore-min.js'></script>
@@ -11,14 +12,14 @@
     <script src='javascript/custom.js'></script>
     <link rel='stylesheet' type='text/css' href='css/normalize.css'>
     <link rel='stylesheet' type='text/css' href='css/milligram.css'>
-    <link rel='stylesheet' type='text/css' href='css/trg.css'>
+    <link rel='stylesheet' type='text/css' href='css/combo.css'>
     <link rel='stylesheet' type='text/css' href='css/custom.css'>
   </head>
   <body>
   <div class='all'>
-    <nav class='header container' id='navBar'></nav>
-    <div class='container bg-other-green chatWindow' id='mainContent'></div>
-    <div class='footer container center' id='chatBar'></div>
+    <nav class='header pure-g' id='navBar'></nav>
+    <div class='pure-g bg-other-green chatWindow' id='mainContent'></div>
+    <div class='footer pure-g center' id='chatBar'></div>
   </div>
   <div class='modal' id='modal'></div>
 
@@ -46,11 +47,11 @@
 
         render: function(){
           return (
-            <div className='row bg-green'>
-              <div className='col span-4-t left'>
+            <div className='pure-u-1 bg-green'>
+              <div className='pure-u-1-2 left'>
                 <h1 className=''>&nbsp;Anonymish</h1>
               </div>
-              <div className='col span-8-t right'>
+              <div className='pure-u-1-2 right'>
                 {localStorage.username ? this.LoggedIn() : this.notLoggedIn()}
               </div>
             </div>
@@ -241,8 +242,8 @@
 
         render: function() {
           return (
-            <div className='row'>
-              <div className='col span-12-t scroll'>
+            <div className='pure-u-1'>
+              <div className='pure-u-1 scroll'>
                 <CompileMessages data={this.state.data} />
               </div>
             </div>
@@ -291,8 +292,8 @@
       var ChatBar = React.createClass({
         render: function() {
           return (
-            <div className='row bg-green'>
-              <div className='col span-12-t'>
+            <div className='pure-u-1 bg-green'>
+              <div className=''>
                 <form onSubmit={this.postComment} className=''>
                   <label className=''>Whats on your mind? </label>
                   {this.checkLogin()}
