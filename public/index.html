@@ -21,7 +21,7 @@
     <div class='pure-g bg-other-green chatWindow' id='mainContent'></div>
     <div class='footer pure-g center' id='chatBar'></div>
   </div>
-  <div class='modal' id='modal'></div>
+  <div class='pure-g modal' id='modal'></div>
 
     <script type='text/babel'>
       var NavBar = React.createClass({
@@ -93,8 +93,8 @@
       var AboutModal = React.createClass({
         render: function() {
           return (
-            <div className='row'>
-              <div className='span-12-t center'>
+            <div className='pure-u-1'>
+              <div className='center'>
                 <h1>About</h1>
                 <p className='left'>Anonymish is a messageboard that will allow you to leave messages for other people in your immediate area. By default, you can see messages posted within 20 miles. You must be registered to post, but your registration data will not be shown to other users.</p>
               </div>
@@ -127,26 +127,22 @@
         render: function() {
           return (  
             <form onSubmit={this.register}>
-              <div className='row'>
-                <div className='span-12-t center'>
+              <div className='pure-u-1'>
+                <div className='center'>
                   <h1>Register Account</h1>
                 </div>  
               </div>
-              <div className='row'>
-                <div className='span-12-t center'>
-                  <input type='text' name='username' id='regName' placeholder='Username' />
-                </div>  
+              <div className='pure-u-1 center bottom-pad'>
+                <input type='text' name='username' id='regName' placeholder='Username' />
               </div>
-              <div className='row'>
-                <div className='span-7-t inline right '>
-                  <input type='password' name='password' id='regPassword' placeholder='Password' />&nbsp;
-                </div>  
-                <div className='span-4-t inline left'>
-                  <input type='text' name='zip' id='regZip' placeholder='Zip Code' />
-                </div>
+              <div className='pure-u-1 center bottom-pad'>
+                <input type='password' name='password' id='regPassword' placeholder='Password' />
               </div>
-              <div className='row'>
-                <div className='span-12-t center'>
+              <div className='pure-u-1 center bottom-pad'>
+                <input type='text' name='zip' id='regZip' placeholder='Zip Code' />
+              </div>
+              <div className='pure-u-1'>
+                <div className='center'>
                   <input type='submit' />
                 </div>  
               </div>
@@ -179,25 +175,19 @@
         render: function() {
           return (  
             <form onSubmit={this.login}>
-              <div className='row'>
-                <div className='span-12-t center'>
+              <div className='pure-u-1'>
+                <div className='center'>
                   <h1>Log In</h1>
                 </div>  
               </div>
-              <div className='row'>
-                <div className='span-12-t center'>
-                  <input type='text' id='logName' name='username' placeholder='Username' />
-                </div>  
+              <div className='pure-u-1 bottom-pad center'>
+                <input type='text' id='logName' name='username' placeholder='Username' />
               </div>
-              <div className='row'>
-                <div className='span-12-t center'>
-                  <input type='password' id='logPass' name='password' placeholder='Password' />
-                </div>  
+              <div className='pure-u-1 bottom-pad center'>
+                <input type='password' id='logPass' name='password' placeholder='Password' />
               </div>
-              <div className='row'>
-                <div className='span-12-t center'>
-                  <input type='submit' />
-                </div>  
+              <div className='pure-u-1 bottom-pad center'>
+                <input type='submit' />
               </div>
             </form>
           )

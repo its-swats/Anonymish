@@ -2,6 +2,12 @@ html {
     background-color: #88D9EF;
 }
 
+.pure-g > div {
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+}
+
 .debug {
     outline: 1px solid black;
 }
@@ -34,8 +40,8 @@ html {
     background-color: #77DEE5;
 }
 
-.inline {
-    display: inline-block;
+.bottom-pad {
+    padding-bottom: .5em;
 }
 
 .footer {
@@ -76,10 +82,22 @@ html {
     bottom: 0;
     margin: auto;
     outline: 1px solid black;
-    width: 50%;
-    height: 40%;
+    width: 90%;
+    height: 80%;
+    
 }
 
 .small {
     font-size: 50%;
+}
+
+@media screen and (min-width: 35.5em) {
+    .modal {
+        max-width: 50%;
+        max-height: 50%;    
+    }
+
+    .inline {
+        display: inline-block;
+    }
 }
