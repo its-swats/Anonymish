@@ -7,7 +7,7 @@ class PostsController < ApplicationController
       @posts = Post.within(20, :origin => params[:coords]).order(id: :desc).limit(20)
       render json: @posts
     else
-      render json: {}, status: 401
+      render json: {:message => 'Critical Error - please log out and back in'}, status: 401
     end
   end
 

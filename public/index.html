@@ -73,7 +73,7 @@
         about: function(event){
           event.preventDefault();
           this.showModal();
-          ReactDOM.render(<AboutModal />, document.getElementById('modal'))
+          ReactDOM.render(<AboutModal data={about}/>, document.getElementById('modal'))
         },
 
         showModal: function() {
@@ -95,8 +95,8 @@
           return (
             <div className='pure-u-1'>
               <div className='center'>
-                <h1>About</h1>
-                <p className='left'>Anonymish is a messageboard that will allow you to leave messages for other people in your immediate area. By default, you can see messages posted within 20 miles. You must be registered to post, but your registration data will not be shown to other users.</p>
+                <h1>Anonymish</h1>
+                <p className='left'>{this.props.data}</p>
               </div>
             </div>
           )
@@ -168,7 +168,10 @@
               $('.modal').hide();
               ReactDOM.render(<NavBar />, document.getElementById('navBar'))
               ReactDOM.render(<ChatBar />, document.getElementById('chatBar'))
-            }.bind(this)
+            }.bind(this),
+            error: function(data){
+              ReactDOM.render(<AboutModal data={error} />, document.getElementById('modal'))
+            }
           })
         },
 

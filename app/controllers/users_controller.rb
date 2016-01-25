@@ -8,7 +8,7 @@ class UsersController < ApplicationController
       user_info = MultiGeocoder.geocode(user.zip_code.to_s)
       render json: {:status => :ok, username: user.username, coords: [user_info.lat, user_info.lng], id: user.id}
     else
-      render json: {:message => 'no good'}
+      render json: {:message => 'Failed to create account, please try again with new information.'}
     end    
   end
 end

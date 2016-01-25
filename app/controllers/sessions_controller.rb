@@ -8,6 +8,8 @@ class SessionsController < ApplicationController
     if user && user.authenticate(params[:password])
       user_info = MultiGeocoder.geocode(user.zip_code.to_s)
       render json: {username: user.username, coords: [user_info.lat, user_info.lng], id: user.id}
+    else
+      render json: {message: 'Incorrect username or password'}, status: 401
     end
   end
 
