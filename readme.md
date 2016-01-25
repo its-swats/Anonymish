@@ -1,5 +1,5 @@
 # Anonymish
-=====
+
 ###What is Anonymish?
 Anonymish is a location-based chat application allowing users to post messages that can be seen by other users within 20 miles. 
 
