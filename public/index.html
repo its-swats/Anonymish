@@ -18,8 +18,8 @@
   <body>
   <div class='all'>
     <nav class='header pure-g' id='navBar'></nav>
-    <div class='pure-g bg-other-green chatWindow' id='mainContent'></div>
-    <div class='footer pure-g center' id='chatBar'></div>
+    <div class='pure-g chatWindow' id='mainContent'></div>
+    <div class='footer pure-g' id='chatBar'></div>
   </div>
   <div class='pure-g modal' id='modal'></div>
 
@@ -232,10 +232,10 @@
 
         render: function() {
           return (
-            <div className='pure-u-1'>
-              <div className='pure-u-1 scroll'>
+            <div className='pure-u-1 bg-other-green'>
+              
                 <CompileMessages data={this.state.data} />
-              </div>
+              
             </div>
           )
         }
@@ -283,7 +283,7 @@
         render: function() {
           return (
             <div className='pure-u-1 bg-green'>
-              <div className=''>
+              <div className='center'>
                 <form onSubmit={this.postComment} className=''>
                   <label className=''>Whats on your mind? </label>
                   {this.checkLogin()}
