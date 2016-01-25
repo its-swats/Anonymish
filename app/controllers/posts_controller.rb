@@ -3,9 +3,8 @@ class PostsController < ApplicationController
   skip_before_action :verify_authenticity_token, only: [:create]
 
   def index
-    if params[:zip]
-      user_info = MultiGeocoder.geocode(params[:zip].to_s)
-      @posts = Post.within(20, :origin => user_info).order(id: :desc).limit(20)
+    if params[:coords]
+      @posts = Post.within(20, :origin => params[:coords]).order(id: :desc).limit(20)
       render json: @posts
     else
       render json: {}, status: 401

@@ -83,7 +83,7 @@
         logOut: function(event){
           event.preventDefault();
           localStorage.removeItem('username')
-          localStorage.removeItem('zip')
+          localStorage.removeItem('coords')
           localStorage.removeItem('id')
           ReactDOM.render(<NavBar />, document.getElementById('navBar'))
           ReactDOM.render(<ChatBar />, document.getElementById('chatBar'))
@@ -115,7 +115,7 @@
             data: {username: $username, password: $password, zip: $zip},
             success: function(data){
               localStorage.setItem("username", data.username);
-              localStorage.setItem("zip", data.zip);
+              localStorage.setItem("coords", data.coords);
               localStorage.setItem('id', data.id);
               $('.modal').hide();
               ReactDOM.render(<NavBar />, document.getElementById('navBar'))
@@ -163,7 +163,7 @@
             data: {username: $username, password: $password},
             success: function(data) {
               localStorage.setItem("username", data.username);
-              localStorage.setItem("zip", data.zip)
+              localStorage.setItem("coords", data.coords)
               localStorage.setItem('id', data.id);
               $('.modal').hide();
               ReactDOM.render(<NavBar />, document.getElementById('navBar'))
@@ -200,7 +200,7 @@
             var response = $.ajax({
               type: 'GET',
               url: '/posts',
-              data: {zip: localStorage.zip},
+              data: {coords: localStorage.coords},
               success: function(data){
                 this.setState({data: data})
                 this.setBoxHeight();
