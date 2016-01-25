@@ -15,7 +15,8 @@ class PostsController < ApplicationController
     user = User.find_by(id: params[:id], username: params[:username])
     if user
       post_info = MultiGeocoder.geocode(user.zip_code.to_s)
-      user.posts.create(content: params[:post], lat: post_info.lat, lng: post_info.lng, city: post_info.district)
+      post_info.city ? city = post_info.city : city = post_info.district
+      user.posts.create(content: params[:post], lat: post_info.lat, lng: post_info.lng, city: city)
       render json: { :status => :ok }
     end
   end
